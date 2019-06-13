@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>No Need For Crabs!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="site.css">
+	<link rel="stylesheet" type="text/css" href="nnfc.css">
+	<script id="shader-fs" type="x-shader/x-fragment">
+	    precision mediump float;
+
+	    void main(void) {
+	        gl_FragColor = vec4(0.6, 0.0, 0.0, 1.0);
+	    }
+    </script>
+	<script id="shader-vs" type="x-shader/x-vertex">
+	    attribute vec3 aVertexPosition;
+
+	    uniform mat4 uMVMatrix;
+	    uniform mat4 uPMatrix;
+
+	    void main(void) {
+	        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+	    }
+    </script>
+	<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+	<script type="text/javascript" src="webgl-utils.js"></script>
+	<script src="nnfc.js" type="text/javascript"></script>
+	<style id="hideStyle">
+		.box {
+			transition: opacity .1s linear;
+		}
+	</style>
+	<script>
+		hidden = false;
+		document.addEventListener("keypress", function (e) {
+			if (e.key === 'h' && document.activeElement !== 'text') {
+				if (hidden) {
+					var hideStyleEl = document.getElementById("hideStyle");
+					hideStyleEl.sheet.deleteRule(0);
+					hidden = false;
+				} else {
+					var hideStyleEl = document.getElementById("hideStyle");
+					hideStyleEl.sheet.insertRule(".box { opacity: 0 }", 0);
+					hidden = true;
+				}
+			}
+		});
+	</script>
+</head>
+
+<body onload="webGLStart()" onresize="resizeAndPaint()">
+	<div class="mybackground">
+		<canvas id="glcanvas">
+			Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+		</canvas>
+	</div>
+	<div id="toprightbox" class="box toprightbox">
+		No Need For Crabs!
+	</div>
+	<div id="maincontent" class="box center-content-box">
+		<p>
+			In the late 90s, Cartoon Network started showing several different anime shows. One of them,
+			<a href="http://tenchi.wikia.com/wiki/Tenchi_Muyo_Wiki">Tenchi Muyo</a>,
+			really resonated with me. I thought it was really funny and I liked the characters.</p>
+		<p>
+			<br>
+			During one of the episodes, Hello Baby!, the super-genius <a
+				href="http://tenchi.wikia.com/wiki/Washu">Washu</a> is
+			pondering for a while and allows her computer interface's screen saver to activate. The screen saver, though
+			only
+			seen for a few seconds (as far as I am aware, never again in any other episode or movie) is a pair of simple
+			red
+			crabs walking across the screen.
+			<video src="CrabSaver.mp4" type="video/mp4" preload="metadata" width="100%" style="max-height: 90vh"
+				controls playsinline></video>
+		</p>
+		<p>
+			<br>Ever since I saw that episode I always thought it would be neat to have that for a real screen saver.
+		</p>
+		<p>
+			<ul>
+				<li><a
+						href="https://github.com/noyhrynban/no-need-for-crabs-macos/releases/latest/download/No.Need.For.Crabs.zip">Mac
+						OS X</a></li>
+				<!-- <li><a href="NoNeedForCrabs-Win.zip">Windows</a></li> -->
+			</ul>
+			<br>Most recently, I have ported it to run as webGL and you can see it as the background of this page!
+			<br><span style="font-size:80%; font-family:monospace">[press 'h' to hide/show everything but the
+				crabs]</span>
+		</p>
+	</div>
+</body>
+
+</html>
